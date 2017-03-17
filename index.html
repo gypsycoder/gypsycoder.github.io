@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <link rel="manifest" href="manifest.json" />
+        
+        <title>കള്ളനും പോലീസും </title>
+        <script src="jquery.min.js"></script>
+        <link href="style.css" rel="stylesheet">
+    
+        <script>
+
+            navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                console.log('Excellent, registered with scope: ', registration.scope);
+            });
+
+            function OpenHelp() {
+                $("#myModal").css({ 'display': 'block' });
+            }
+            function CloseHelp() {
+                $("#myModal").css({ 'display': 'none' })
+            }
+            function Openabt() {
+                $("#myModalabt").css({ 'display': 'block' });
+            }
+            function Closeabt() {
+                $("#myModalabt").css({ 'display': 'none' })
+            }
+            $(document).ready(function () {
+                $("#td0").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                $("#td0").html("പുതിയ കളി");
+                $("#hidStart").val("0");
+                $("#hidP1").val("0");
+                $("#hidP2").val("0");
+                $("#hidP3").val("0");
+                $("#hidP4").val("0");
+                DoEvents();
+                $("#td5").html("");
+                $("#td6").html("");
+                $("#td7").html("");
+                $("#td8").html("");
+                $("#tdMsg").hide();
+                $("#tdMsg").html("");
+                $("#td5s").html("");
+                $("#td6s").html("");
+                $("#td7s").html("");
+                $("#td8s").html("");
+                $("#hidGK").val("0");
+                $("#tdno").html("0"); 
+            });
+            function StartFunction() {
+                if ($("#hidStart").val() == 0) {
+                    $("#td0").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                    $("#td1").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                    $("#td2").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                    $("#td3").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                    $("#td4").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                    $("#hidStart").val("1");
+                    $("#td5").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                    $("#td6").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                    $("#td7").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                    $("#td8").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                    var myArray = ['1', '2', '3', '4'];
+                    shuffle(myArray);
+                    shuffle(myArray);
+                    shuffle(myArray);
+                //alert(myArray[0] + '-' + myArray[1] + '-' + myArray[2] + '-' + myArray[3]);
+                //1-Kallan(0),2-Police(700),3-Queen(900),4-King(1000)
+                    $("#hidS1").val(myArray[0]);
+                    $("#hidS2").val(myArray[1]);
+                    $("#hidS3").val(myArray[2]);
+                    $("#hidS4").val(myArray[3]);
+                    $("#hidP1").val("0");
+                    $("#hidP2").val("0");
+                    $("#hidP3").val("0");
+                    $("#hidP4").val("0");
+                    $("#hidGK").val("0");
+                    $("#td5").html("");
+                    $("#td6").html("");
+                    $("#td7").html("");
+                    $("#td8").html("");
+                    $("#td0").html("");
+                    $("#td5s").html("");
+                    $("#td6s").html("");
+                    $("#td7s").html("");
+                    $("#td8s").html("");
+                    $("#td5").css({ 'border': '0px white solid' });
+                    $("#td6").css({ 'border': '0px white solid' });
+                    $("#td7").css({ 'border': '0px white solid' });
+                    $("#td8").css({ 'border': '0px white solid' });
+                //$("#tdMsg").show();
+                //$("#tdMsg").html("Please Choose your Lot !!!");
+                    $("#tdMsg").show();
+                    $("#tdMsg").html("നിങളുടെ കാർഡ് തിരഞ്ഞെടുക്കൂ .. !!!");
+                }
+            }
+            function SelectLot(chk) {
+                if ($("#hidStart").val() == "1") {
+                    $("#tdMsg").hide();
+                    var a = $(chk).attr('id');
+                    $("#" + a).css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                    $("#hidStart").val("2");
+                    $("#td7").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                    var b = a.substr(2, 1);
+                    $("#hidSel").val(b);
+                    var c = $("#hidS" + b).val();
+                    $("#hidP1").val(c);
+                    setTimeout(function () { SetOthers(); }, 2000);
+                }
+            }
+            function shuffle(a) {
+                var j, x, i;
+                for (i = a.length; i; i--) {
+                    j = Math.floor(Math.random() * i);
+                    x = a[i - 1];
+                    a[i - 1] = a[j];
+                    a[j] = x;
+                }
+            }
+            function SetOthers() {
+                var x = $("#hidSel").val();
+                var i, y;
+                for (i = 1; i <= 4; i++) {
+                    if (x != i) {
+                        y = $("#hidS" + i).val();
+                        if ($("#hidP2").val() == "0") {
+                            $("#hidP2").val(y);
+                        }
+                        else if ($("#hidP3").val() == "0") {
+                            $("#hidP3").val(y);
+                        }
+                        else if ($("#hidP4").val() == "0") {
+                            $("#hidP4").val(y);
+                        }
+                    }
+                }
+                $("#td1").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                $("#td2").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                $("#td3").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+                $("#td4").css({ 'background': 'linear-gradient(to right, white 100%, white 0%)' });
+
+                $("#td5").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                $("#td6").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                $("#td8").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                setTimeout(function () { FindPolice(); }, 2000);
+            }
+            function DoEvents() {
+                $("#td7").click(function () {
+                    if ($("#hidStart").val() == "4") {
+                        $("#hidStart").val("5");
+                        $("#td7").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                        var a = GetValues($("#hidP1").val());
+                        $("#td7").html(a);
+                        if ($("#hidP1").val() == 1) {
+                                //alert("Bad luck");
+                            $("#tdMsg").show();
+                            $("#tdMsg").html("കള്ളൻ നിങൾ തന്നെ ,, കള്ളാ കള്ളാ ");
+                            $("#hidGK").val("1");
+                        }
+                        else {
+                            $("#tdMsg").show();
+                            $("#tdMsg").html("അടിപൊളി, നിങൾ രക്ഷപെട്ടു !!");
+                            $("#hidGK").val("0");
+                        }
+                        setTimeout(function () { showall(); }, 2000);
+                    }
+                });
+                $("#td8").click(function () {
+                    if ($("#hidStart").val() == "3") {
+                        $("#td8").css({ 'border': '5px blue solid' });
+                        $("#hidStart").val("4");
+                        $("#td8").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                        var a = GetValues($("#hidP2").val());
+                        $("#td8").html(a);
+                        if ($("#hidP2").val() == 1) {
+                            //alert("congratulations!!, you caught കള്ളൻ ")
+                            $("#tdMsg").show();
+                            $("#tdMsg").html("അടിപൊളി, നിങൾ കള്ളനെ കണ്ടുപിടിച്ചു ");
+                            $("#td8").css({ 'border': '5px red solid' });
+                            $("#hidGK").val("1");
+                        }
+                        else {
+                            //alert("Bad luck");
+                            $("#tdMsg").show();
+                            $("#tdMsg").html("അയ്യോ !! കള്ളൻ രക്ഷപെട്ടു ..");
+                            $("#hidGK").val("0");
+                        }
+                        setTimeout(function () { showall(); }, 2000);
+                    }
+                });
+                $("#td5").click(function () {
+                    if ($("#hidStart").val() == "3") {
+                        $("#td5").css({ 'border': '5px blue solid' });
+                        $("#hidStart").val("4");
+                        $("#td5").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                        var a = GetValues($("#hidP3").val());
+                        $("#td5").html(a);
+                        if ($("#hidP3").val() == 1) {
+
+                            $("#tdMsg").show();
+                            $("#tdMsg").html("അടിപൊളി, നിങൾ കള്ളനെ കണ്ടുപിടിച്ചു ");
+                            $("#td5").css({ 'border': '5px red solid' });
+                            $("#hidGK").val("1");
+                        }
+                        else {
+                            //alert("Bad luck");
+                            $("#tdMsg").show();
+                            $("#tdMsg").html("അയ്യോ !! കള്ളൻ രക്ഷപെട്ടു ..");
+                            $("#hidGK").val("0");
+                        }
+                        setTimeout(function () { showall(); }, 1500);
+                    }
+                });
+                $("#td6").click(function () {
+                    if ($("#hidStart").val() == "3") {
+                        $("#td6").css({ 'border': '5px blue solid' });
+                        $("#hidStart").val("4");
+                        $("#td6").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                        var a = GetValues($("#hidP4").val());
+                        $("#td6").html(a);
+                        if ($("#hidP4").val() == 1) {
+                            $("#tdMsg").show();
+                            $("#tdMsg").html("അടിപൊളി, നിങൾ കള്ളനെ കണ്ടുപിടിച്ചു ");
+                            $("#td6").css({ 'border': '5px red solid' });
+                            $("#hidGK").val("1");
+                        }
+                        else {
+                            //alert("Bad luck");
+                            $("#tdMsg").show();
+                            $("#tdMsg").html("അയ്യോ !! കള്ളൻ രക്ഷപെട്ടു ..");
+                            $("#hidGK").val("0");
+                        }
+                        setTimeout(function () { showall(); }, 2000);
+                    }
+                });
+            }
+            function GetValues(x) {
+
+                var val;
+                if (x == 1) {
+                    val = "കള്ളൻ </br> 000";
+                }
+                else if (x == 2) {
+                    val = "പോലീസ് </br> 700";
+                }
+                else if (x == 3) {
+                    val = "രാജ്ഞി </br> 900";
+                }
+                else if (x == 4) {
+                    val = "രാജാവ് </br> 1000";
+                }
+                return val;
+            }
+            function FindPolice() {
+                var a = $("#hidP1").val();
+                var b = $("#hidP2").val();
+                var c = $("#hidP3").val();
+                var d = $("#hidP4").val();
+                if (a == 2) {
+                    $("#hidStart").val("3");
+                    $("#td7").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                    $("#td7").html(GetValues(2));
+                    //alert("you are പോലീസ്, Please Find കള്ളൻ")
+                    $("#tdMsg").show();
+                    $("#tdMsg").html("നിങൾ ആണ് പോലീസ് കള്ളനെ കണ്ടുപിടിക്യമോ ?");
+
+                }
+                else if (b == 2) {
+                    $("#td8").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                    $("#td8").html(GetValues(2));
+                    setTimeout(function () { FindKallan(2); }, 2000);
+                }
+                else if (c == 2) {
+                    $("#td5").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                    $("#td5").html(GetValues(2));
+                    setTimeout(function () { FindKallan(3); }, 2000);
+                }
+                else if (d == 2) {
+                    $("#td6").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                    $("#td6").html(GetValues(2));
+                    setTimeout(function () { FindKallan(4); }, 2000);
+                }
+            }
+            function FindKallan(b) {
+                var br = GenerateRandomNumber(4, b);
+                if (br == 1) {
+                    $("#hidStart").val("4");
+                    $("#td7").css({ 'border': '5px blue solid' });
+                    //alert("Police said you are Theif so pls show ur card!!")
+                    $("#tdMsg").show();
+                    $("#tdMsg").html("പോലീസ് പറയുന്നു നിങ്ങളാണ് കള്ളൻ,കാർഡ് കാണിക്യമോ ...?!!");
+                }
+                else if (br == 2) {
+                    $("#td8").css({ 'border': '5px blue solid' });
+                    setTimeout(function () { showall(); }, 2000);
+
+                    if ($("#hidP2").val() == "1") {
+                        $("#hidGK").val("1");
+                    }
+                    else {
+                        $("#hidGK").val("0");
+                    }
+                }
+                else if (br == 3) {
+                    $("#td5").css({ 'border': '5px blue solid' });
+                    setTimeout(function () { showall(); }, 2000);
+                    if ($("#hidP3").val() == "1") {
+                        $("#hidGK").val("1");
+                    }
+                    else {
+                        $("#hidGK").val("0");
+                    }
+                }
+                else if (br == 4) {
+                    $("#td6").css({ 'border': '5px blue solid' });
+                    setTimeout(function () { showall(); }, 2000);
+                    if ($("#hidP4").val() == "1") {
+                        $("#hidGK").val("1");
+                    }
+                    else {
+                        $("#hidGK").val("0");
+                    }
+                }
+            }
+            function GenerateRandomNumber(max, b) {
+                var rnd = Math.floor(Math.random() * (max + 1))
+                if (rnd == 0) {
+                    rnd = 1;
+                }
+                if (rnd == b) {
+                    rnd = GenerateRandomNumber(max, b);
+                    if (rnd == 0) {
+                        rnd = GenerateRandomNumber(max, b);
+                    }
+                }
+                return rnd;
+            }
+            function showall() {
+                $("#td7").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                var a = GetValues($("#hidP1").val());
+                $("#td7").html(a);
+
+                $("#td8").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                var b = GetValues($("#hidP2").val());
+                $("#td8").html(b);
+
+                $("#td5").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                var c = GetValues($("#hidP3").val());
+                $("#td5").html(c);
+
+                $("#td6").css({ 'background': 'linear-gradient(to right, #99FF00 100%, white 0%)' });
+                var d = GetValues($("#hidP4").val());
+                $("#td6").html(d);
+
+                var a2 = $("#hidP1").val();
+                var b2 = $("#hidP2").val();
+                var c2 = $("#hidP3").val();
+                var d2 = $("#hidP4").val();
+
+                if (a2 == 1) {
+                    $("#td7").css({ 'border': '5px red solid' });
+                    if ($("#hidStart").val() != "5") {
+                        $("#tdMsg").show();
+                        $("#tdMsg").html("പൊളിച്ചു,നിങൾ രക്ഷപെട്ടു !! ");
+                    }
+                }
+                else if (b2 == 1) {
+                    $("#td8").css({ 'border': '5px red solid' });
+                }
+                else if (c2 == 1) {
+                    $("#td5").css({ 'border': '5px red solid' });
+                }
+                else if (d2 == 1) {
+                    $("#td6").css({ 'border': '5px red solid' });
+                }
+                if (a2 == 4) {
+                    $("#tdMsg").show();
+                    $("#tdMsg").html("രാജാവേ!!!!!!!!!");
+                }
+                setScores(a2, b2, c2, d2);
+                clear();
+            }
+            function clear() {
+                $("#td0").css({ 'background': 'linear-gradient(to right, #FFFF66 100%, white 0%)' });
+                $("#td0").html("പുതിയ കളി");
+                $("#hidStart").val("0");
+                $("#hidGK").val("0");
+            }
+            function setScores(a, b, c, d) {
+
+                $("#td5s").html("");
+                $("#td6s").html("");
+                $("#td7s").html("");
+                $("#td8s").html("");
+
+                $("#td7s").html(GetScore(a));
+                $("#td8s").html(GetScore(b));
+                $("#td5s").html(GetScore(c));
+                $("#td6s").html(GetScore(d));
+                SetGrandTotal($("#td7s").html(), $("#td8s").html(), $("#td5s").html(), $("#td6s").html());
+            }
+            function GetScore(y) {
+                var m = 0;
+                if (y == 1) {
+                    if ($("#hidGK").val() == "1") {
+                        m = 0;
+                    }
+                    else {
+                        m = 700;
+                    }
+
+                }
+                else if (y == 2) {
+                    if ($("#hidGK").val() == "1") {
+                        m = 700;
+                    }
+                    else {
+                        m = 0;
+                    }
+                }
+                else if (y == 3) {
+                    m = 900;
+                }
+                else if (y == 4) {
+                    m = 1000;
+                }
+                return m;
+            }
+            function SetGrandTotal(a, b, c, d) {
+                var p1 = parseInt($("#hidM1").val()) + parseInt(a);
+                var p2 = parseInt($("#hidM2").val()) + parseInt(b);
+                var p3 = parseInt($("#hidM3").val()) + parseInt(c);
+                var p4 = parseInt($("#hidM4").val()) + parseInt(d);
+
+                $("#hidM1").val(p1);
+                $("#hidM2").val(p2);
+                $("#hidM3").val(p3);
+                $("#hidM4").val(p4);
+                $("#td1m").html(p1);
+                $("#td2m").html(p2);
+                $("#td3m").html(p3);
+                $("#td4m").html(p4);
+                $("#tdno").html(parseInt($("#tdno").html()) + 1);
+            }
+            function Reset() {
+                $("#hidM1").val("0");
+                $("#hidM2").val("0");
+                $("#hidM3").val("0");
+                $("#hidM4").val("0");
+                $("#td1m").html("0");
+                $("#td2m").html("0");
+                $("#td3m").html("0");
+                $("#td4m").html("0");
+                $("#tdno").html("0");
+                location.reload();
+            }
+        </script>
+        <style type="text/css">
+            td {
+                width: 50px;
+                height: 50px;
+            }
+
+            /*.auto-style1 {
+                width: 50px;
+            }
+
+            .auto-style2 {
+                cursor: pointer;
+                width: 50px;
+            }*/
+        </style>
+    </head>
+    <body>
+        <form id="form1">
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close" onclick="CloseHelp();">×</span>
+                    <p>
+                        
+                    </p>
+                    <h3 style="color: Green">
+                        <img src="Thief.jpg" style="height:60px;width:111px;margin-bottom:-11px"><br>
+                        കള്ളനും പോലീസും
+                    </h3>
+                    <p>
+                        <b>താഴെ ഉള്ള നിർദ്ദേശങ്ങൾ  ശ്രദ്ധയോടെ  വായിക്കുക.</b>
+                        <br><br>
+                        1 കളി തുടങ്ങാൻ 
+                        <img src="canvas.png" width="60px"> ഇതിൽ അമർത്തുക<br>
+                        2 
+                        <img src="instr.png" width="140px">ഇവിടെ തെളിയുന്ന നിർദ്ദേശങ്ങൾ ശ്രദ്ധയോടെ വായികയുക<br>
+                        3 കാർഡ് സെലക്ട് ചെയ്യാൻ , കാർഡ്ന്റെ മുകളിൽ അമർത്തുക<br>
+                        4 നിങ്ങൾ  കാർഡ് സെലക്ട് ചെയ്താൽ , കംപ്യൂട്ടര് തനിയെ പോലീസിനെ കണ്ടെത്തുന്നതാണ് , നിങ്ങൾ  പോലീസ് ആണെകിൽ കള്ളനെ കണ്ടുപിടിക്കയണം , പിടിച്ചാൽ 700 അല്ലെകിൽ 0 സ്കോർ ആണ് ലഭിക്കുക  .<br>
+                        5 ഓരോ കളി കഴിയുമ്പോഴും നിങളുടെ സ്കോർ , ബോര്ഡില് തെളിയും.അതിൽ വിജയിയെ കണ്ടെത്താം <br>
+                        6 .ഗെയിം റീസ്റ്റാർട്ട്   ചെയ്യാൻ
+                        <img src="Reset.png"> ഇതിൽ അമർത്തുക<br>
+                        <br>
+                        <br>
+                    </p>
+                </div>
+            </div>
+            <div id="myModalabt" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content" style="width: 30%;">
+                    <span class="close" onclick="Closeabt();">×</span>
+                    <h3 style="color: Green">
+                        <img src="Thief.jpg" style="height:60px;width:111px;margin-bottom:-11px"><br>കള്ളനും പോലീസും
+                    </h3>
+                    <p>
+                    </p>
+                    <p>
+                        തയ്യാറാക്കിയത് :<b style="color: Red">അനീഷ് ചന്ദ്രൻ </b><br>
+                        <br>
+                        <img src="fb.png" style="width: 20px; height: 20px;">
+                        <a href="https://www.facebook.com/aneesh.ani.3958" target="_blank">നിർദ്ദേശങ്ങൾ അയക്കൂ</a>
+                        </p><p>ഇ-മെയിൽ : <b>aneesh9947@gmail.com</b>
+                    </p>
+                    
+                </div>
+            </div>
+            <div style="float:left;width:15%;" align="center">
+                <table style="border:2px solid black;background:white;width:100%;height:100%">
+                    <tbody><tr>
+                        <td colspan="2" style="width:100%" align="center">
+                            <img src="Thief.jpg" style="height:60px;width:111px;margin-bottom:-25px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="width:100%" align="center">
+                            <b> കള്ളനും</b> <br> <b> പോലീസും</b>
+                        </td>
+                    </tr>
+                </tbody></table>
+                <table style="border:2px solid black;background:buttonface;width:100%;">
+                    <tbody><tr><td align="center">കളി : </td><td align="center" id="tdno">0</td></tr>
+                    <tr>
+                        <td align="center">
+                            <img src="Reset.png" onclick="Reset();" style="cursor:pointer;" width="25px" title="Reset">
+                        </td>
+                        <td align="center">സ്കോർ </td>
+                    </tr>
+                    <tr><td><img src="P11.jpg" style="width: 40px;"></td><td align="center" id="td1m">0</td></tr>
+                    <tr><td><img src="P22.jpg" style="width: 40px;"></td><td align="center" id="td2m">0</td></tr>
+                    <tr><td><img src="P33.jpg" style="width: 40px;"></td><td align="center" id="td3m">0</td></tr>
+                    <tr><td><img src="P44.jpg" style="width: 40px;"></td><td align="center" id="td4m">0</td></tr>
+                </tbody></table>
+                <table style="border:2px solid black;background:buttonface;width:100%;">
+                    <tbody><tr>
+                        <td style="width:100%;" align="center">
+                            <div align="center" style="border: 1px solid black">
+                                <img src="about.png" style="width:30px;cursor:pointer;margin-top:13px" title="About" onclick="Openabt();">
+                                <img src="How-to.png" style="width:28px;cursor:pointer;margin-top:13px" title="How to Play" onclick="OpenHelp();">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </div>
+            <div style="float:left;width:85%;" align="center">
+                <input type="hidden" id="hidStart" value="0">
+                <input type="hidden" id="hidS1" value="0">
+                <input type="hidden" id="hidS2" value="0">
+                <input type="hidden" id="hidS3" value="0">
+                <input type="hidden" id="hidS4" value="0">
+
+                <input type="hidden" id="hidP1" value="0">
+                <input type="hidden" id="hidP2" value="0">
+                <input type="hidden" id="hidP3" value="0">
+                <input type="hidden" id="hidP4" value="0">
+
+                <input type="hidden" id="hidM1" value="0">
+                <input type="hidden" id="hidM2" value="0">
+                <input type="hidden" id="hidM3" value="0">
+                <input type="hidden" id="hidM4" value="0">
+
+                <input type="hidden" id="hidSel" value="0">
+                <input type="hidden" id="hidGK" value="0">
+
+                <table style="width:auto;height:auto">
+                    <tbody><tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td align="center">
+                            <img src="P3.jpg" style="width: 90px;">
+                        </td>
+                        <td align="center" id="td5s"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="td5" style="cursor: pointer; text-align: center"></td>
+                        <td class="auto-style1"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="td1" style="cursor: pointer" onclick="SelectLot(this);"></td>
+                        <td class="auto-style1"></td>
+                        <td></td>
+                        <td></td>
+                        <td align="center" id="td6s"></td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <img src="P2.jpg" style="width: 70px;">
+                        </td>
+                        <td id="td8" style="text-align: center;cursor:pointer"></td>
+                        <td style="cursor: pointer"></td>
+                        <td id="td4" style="cursor: pointer" onclick="SelectLot(this);"></td>
+                        <td id="td0" style="cursor: pointer; text-align: center; background: linear-gradient(to right, rgb(255, 255, 102) 100%, white 0%);" onclick="StartFunction();">പുതിയ കളി</td>
+                        <td id="td2" style="cursor: pointer; text-align: center" onclick="SelectLot(this);" class="auto-style2"></td>
+                        <td style="cursor: pointer"></td>
+                        <td id="td6" style="text-align: center;cursor:pointer"></td>
+                        <td align="center">
+                            <img src="P4.jpg" style="width: 70px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" id="td8s"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="td3" style="cursor: pointer" onclick="SelectLot(this);"></td>
+                        <td class="auto-style1"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="td7" style="cursor: pointer; text-align: center"></td>
+                        <td class="auto-style1"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td align="center" id="td7s"></td>
+                        <td align="center">
+                            <img src="P1.jpg" style="width: 90px;">
+                        </td>
+                        <td></td>
+                        <td colspan="3" id="tdMsg" style="background: rgb(204, 204, 255); text-align: center; display: none;"></td>
+                    </tr>
+                </tbody></table>
+            </div>
+
+        </form>
+
+    </body>
+</html>
